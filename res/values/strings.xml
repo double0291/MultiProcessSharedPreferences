@@ -2,7 +2,8 @@
 <resources>
 
     <string name="app_name">MultiProcessSP</string>
-    <string name="process_a">ProcessA</string>
-    <string name="process_b">ProcessB</string>
+    <string name="process_a">go to other Process</string>
+    <string name="write">write SP</string>
+    <string name="read">read SP</string>
 
 </resources>
