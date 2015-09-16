@@ -15,10 +15,10 @@ public class SPProxy implements SharedPreferences {
     private Set<OnSharedPreferenceChangeListener> mListeners;
 
     public SPProxy(WeakReference<Context> context, String name, int mode) {
-        if (!Utils.sIsInMainProcess) {
-            mSPOperator = new ContentProviderOperator(context, name);
-        } else {
+        if (Utils.sIsInMainProcess) {
             mSPOperator = new DefaultSPOperator(context.get(), name, mode);
+        } else {
+            mSPOperator = new ContentProviderOperator(context, name);
         }
         mEditor = new EditorImpl();
     }

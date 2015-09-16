@@ -1,6 +1,8 @@
 package com.multiprocesssp.ui;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -11,6 +13,7 @@ import com.multiprocesssp.base.BaseApplication;
 
 public class ActivityA extends Activity implements OnClickListener {
     Button mWriteBtn, mReadBtn;
+    SharedPreferences mSP = BaseApplication.getInstance().getSharedPreferences("chen", Context.MODE_MULTI_PROCESS);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +32,10 @@ public class ActivityA extends Activity implements OnClickListener {
             case R.id.write:
                 break;
             case R.id.read:
-                int i = BaseApplication.getInstance().getSP().getInt("int", 0);
-                Toast.makeText(this, i + "", Toast.LENGTH_SHORT).show();
+                boolean b = mSP.getBoolean("bool", false);
+                int i = mSP.getInt("int", 0);
+                String s = mSP.getString("string", "");
+                Toast.makeText(this, b + "", Toast.LENGTH_SHORT).show();
                 break;
         }
     }

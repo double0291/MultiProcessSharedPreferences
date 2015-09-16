@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class SPManager {
     private static SPManager sInstance = new SPManager();
 
-    private WeakReference<Context> mContext = null;
+    private WeakReference<Context> mContext;
 
     private Map<String, SharedPreferences> mLocalSPs = new ConcurrentHashMap<String, SharedPreferences>(5);
     private Map<String, SharedPreferences> mRemoteSPs = new ConcurrentHashMap<String, SharedPreferences>(5);
@@ -32,10 +32,10 @@ public class SPManager {
         SharedPreferences sp = null;
         Map<String, SharedPreferences> spMap = null;
 
-        if (!Utils.sIsInMainProcess) {
-            spMap = mRemoteSPs;
+        if (Utils.sIsInMainProcess) {
+            spMap = mLocalSPs; // local的使用多一点，放在if里面
         } else {
-            spMap = mLocalSPs;
+            spMap = mRemoteSPs;
         }
 
         sp = spMap.get(name);

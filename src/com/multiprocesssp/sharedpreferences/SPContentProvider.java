@@ -59,7 +59,8 @@ public class SPContentProvider extends ContentProvider {
                     value = sp.getFloat(key, Float.parseFloat(defaultValue));
                     break;
                 case Constants.VALUE_TYPE_BOOLEAN:
-                    value = sp.getBoolean(key, Boolean.parseBoolean(defaultValue));
+                    // boolean has to be converted to an integer cursor
+                    value = sp.getBoolean(key, Boolean.parseBoolean(defaultValue)) ? 1 : 0;
                     break;
                 case Constants.VALUE_TYPE_STRING:
                     value = sp.getString(key, defaultValue);
@@ -67,6 +68,7 @@ public class SPContentProvider extends ContentProvider {
                 case Constants.VALUE_TYPE_ANY:
                     // return something to hint that key exists
                     value = sp.contains(key) ? 0 : null;
+                    break;
             }
 
             if (value != null) {

@@ -1,7 +1,6 @@
 package com.multiprocesssp.base;
 
 import android.app.Application;
-import android.content.Context;
 import android.content.SharedPreferences;
 import com.multiprocesssp.sharedpreferences.SPManager;
 
@@ -12,8 +11,13 @@ public class BaseApplication extends Application {
         return instance;
     }
 
-    public SharedPreferences getSP() {
-        return SPManager.getsInstance().getSharedPreferences("abc", Context.MODE_MULTI_PROCESS);
+    @Override
+    public SharedPreferences getSharedPreferences(String name, int mode) {
+        return SPManager.getsInstance().getSharedPreferences(name, mode);
+    }
+
+    public SharedPreferences getSystemSharedPreferences(String name, int mode) {
+        return super.getSharedPreferences(name, mode);
     }
 
     @Override
