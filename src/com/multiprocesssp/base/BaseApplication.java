@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import com.multiprocesssp.sharedpreferences.SPManager;
 
 public class BaseApplication extends Application {
-    private static BaseApplication instance = new BaseApplication();
+    private static BaseApplication instance;
 
     public static BaseApplication getInstance() {
         return instance;
@@ -22,6 +22,9 @@ public class BaseApplication extends Application {
 
     @Override
     public void onCreate() {
+		super.onCreate();
+		instance = this;
+		
         SPManager.getsInstance().init(this);
     }
 }
